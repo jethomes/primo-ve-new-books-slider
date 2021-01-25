@@ -88,8 +88,8 @@ function makeDisplay($books) { //generate title and cover art with link for each
 				//maybe come back and put a check in here to loop through every Syndetics option first?	nah that's work brah
 				
 				else { 
-				    //***Replace the Google Books API placeholder with your own
-					$googson = file_get_contents('https://www.googleapis.com/books/v1/volumes?q=' . $isbn . '&fields=items(volumeInfo(imageLinks%2Ctitle))&key=AIzaSyB25KmKuhQFm0s0Q01-_YcfjrTY8UMEcLg'); //ughhh, google books has some issues, primarily that it might find a book by isbn and then not have a cover for it, so it goes somewhere weird. Also some bad isbn metadata in there I think. Need to go back to Syndetics with GB as a fallback I think
+				    //***Replace the Google Books APIKEY placeholder with your own
+					$googson = file_get_contents('https://www.googleapis.com/books/v1/volumes?q=' . $isbn . '&fields=items(volumeInfo(imageLinks%2Ctitle))&key=APIKEY'); //ughhh, google books has some issues, primarily that it might find a book by isbn and then not have a cover for it, so it goes somewhere weird. Also some bad isbn metadata in there I think. Need to go back to Syndetics with GB as a fallback I think
 					$googparse = json_decode($googson, false);
 					$image = (string)$googparse->items[0]->volumeInfo->imageLinks->thumbnail;
 					$image = str_ireplace('http://', 'https://', $image); //Google returns http instead of https for some reason
