@@ -25,16 +25,16 @@ $contents = '<!doctype html><html lang="en" /><head><meta http-equiv="Content-Ty
 
 //***Change the spreadsheet links below to your own FTP'ed spreadsheets. Add or delete them as needed. For a basic setup, you'll need only spreadsheet1. If your links cause issues, make sure they're on the same server as this file.
 
-$spreadsheet1 = "joelle.domains.trincoll.edu/wesana/New Books for Trinitys feed.xls"; 
-$spreadsheet2 = "joelle.domains.trincoll.edu/trinana/New E-Books.xlsx";
-$spreadsheet3 = "joelle.domains.trincoll.edu/connana/CC New Books for Trinity.xls";
-$spreadsheet4 = "joelle.domains.trincoll.edu/trinana/New Books.xls";
+$spreadsheet1 = "DOMAIN/wesana/New Books for Trinitys feed.xls"; 
+$spreadsheet2 = "DOMAIN/trinana/New E-Books.xlsx";
+$spreadsheet3 = "DOMAIN/connana/CC New Books for Trinity.xls";
+$spreadsheet4 = "DOMAIN/trinana/New Books.xls";
 
 function sheetGet($spreadsheet) { //process xls file content
 	
 	//I don't understand all of how PhpSpreadsheet works but this does what I need it to
-	$inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($spreadsheet); //  Identify the type
-	$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType); //  Create a new Reader of the type that has been identified  
+	$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+	$reader->setReadDataOnly(true); //don't need formatting
 	$spreadsheet = $reader->load($spreadsheet); //  Load to a Spreadsheet Object  
 	$books = $spreadsheet->getActiveSheet()->toArray(); //  Convert Spreadsheet Object to an Array for ease of use 
 //	var_dump($books);
@@ -63,8 +63,8 @@ function makeDisplay($books) { //generate title and cover art with link for each
 		
 			echo $title . ": "; //if you run this file from your browser, this will print out titles as they're processed
 			
-			//***Change the APIKEY placeholder below to your own Primo API key	
-			$linkson = file_get_contents('https://api-na.hosted.exlibrisgroup.com/primo/v1/search?vid=01CTW_TC%3ACTWTC&tab=LibraryCatalog&scope=MyInstitution&q=any,exact,' . $mms . '&apikey=APIKEY');
+			//***Change the APIKEY placeholder below to your own Primo API key and the TAB and SCOPE and VID placeholders to your own info
+			$linkson = file_get_contents('https://api-na.hosted.exlibrisgroup.com/primo/v1/search?vid=VID&tab=TAB&scope=SCOPE&q=any,exact,' . $mms . '&apikey=APIKEY');
 			$cleanson = json_decode($linkson, false);
 			$reallink = (string) $cleanson->docs[0]->pnx->control->recordid[0]; 
 			if ($reallink == '') {
