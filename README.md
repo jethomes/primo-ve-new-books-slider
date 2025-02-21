@@ -1,7 +1,7 @@
 # primo-new-books-slider
 Code and instructions for setting up a slider with book covers in your instance of Primo VE, as adapted from my presentation on a Primo BO version at ENUG 2019.
 
-The files in /webserver need to go on your webhosting. Make sure PHP and the PHPSpreadsheet library(https://phpspreadsheet.readthedocs.io/en/latest/) are set up and ready to go. Look for comments beginning with *** for bits you need to change.
+The files in /webserver need to go on your webhosting. You'll also need an API key from the Exlibris Developers Network with Analytics permisisons, and optionally a Google Books API. Look for comments beginning with *** for bits you need to change.
 
 The files in /PrimoVE contain the bits you need to add to your custom.js and custom1.css files.
 
